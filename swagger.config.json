@@ -1,0 +1,5 @@
+{
+  "url": "swagger api json",
+  "dir": "./src/lib",
+  "language": "typescript"
+}

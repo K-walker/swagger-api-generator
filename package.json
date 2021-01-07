@@ -1,0 +1,60 @@
+{
+  "name": "swagger-api-generator",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "swagger-pull": "node pull.js",
+    "swagger-push": "node push.js"
+  },
+  "peerDependencies": {},
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "author": "sunweiqi",
+  "module": "dist/api.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/api.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/api.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.9.1",
+    "@types/qs": "^6.9.5",
+    "husky": "^4.3.6",
+    "npm-cli-login": "^0.1.1",
+    "shelljs": "^0.8.4",
+    "size-limit": "^4.9.1",
+    "swagger-typescript": "^4.0.13",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "lodash": "^4.17.20",
+    "qs": "^6.9.4"
+  }
+}
