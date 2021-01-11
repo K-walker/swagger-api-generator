@@ -18,21 +18,14 @@ async function run() {
 
   shelljs.echo('开始登入');
   await delay();
-  npmLogin(
-    'deploy',
-    'sdfsdf87778',
-    'deploy@billbear.cn',
-    'https://nexus.billbear.cn/repository/npm/'
-  );
+  npmLogin('账号', '密码', '邮箱', 'npm仓库地址');
 
   shelljs.echo('开始发版');
   await delay();
-  shelljs.exec(
-    'npm publish --registry=https://nexus.billbear.cn/repository/npm/'
-  );
+  shelljs.exec('npm publish --registry=npm仓库地址');
 
   shelljs.echo('推送代码');
-  shelljs.exec('git push');
+  // shelljs.exec('git push');
   shelljs.exec('git push --tags');
 }
 
