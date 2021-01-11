@@ -15,7 +15,7 @@ import { axiosEvent } from './event';
 import { axiosLoading } from './loading';
 
 const baseConfig: AxiosRequestConfig = {
-  baseURL: '/api/supplychain',
+  baseURL: '/api/usercenter',
 };
 
 let axiosInstance: AxiosInstance;

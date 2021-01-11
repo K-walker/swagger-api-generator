@@ -16,6 +16,16 @@
 }
 ```
 
+## config.ts
+
+修改 baseURL
+
+```js
+const baseConfig: AxiosRequestConfig = {
+  baseURL: '/api',
+};
+```
+
 ## push.js
 
 输入你 npm 库对应的信息

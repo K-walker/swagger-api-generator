@@ -19,7 +19,9 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "swagger-pull": "node pull.js",
-    "swagger-push": "node push.js"
+    "swagger-push": "node push.js",
+    "api": "node pull.js",
+    "postapi": "node push.js"
   },
   "peerDependencies": {},
   "prettier": {
