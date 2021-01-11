@@ -34,25 +34,15 @@ function template(path: string, obj: { [x: string]: any } = {}) {
   return path;
 }
 
-export const deleteAdminAttributeId = async (
+/**
+ * 删除公司信息
+ */
+export const deleteCompanyDeleteCompanyId = async (
   id: string,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.deleteRequest(
-    template("/admin/attribute/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const deleteAdminAttributeOptionId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.deleteRequest(
-    template("/admin/attributeOption/{id}", { id }),
+    template("/company/deleteCompany/{id}", { id }),
     undefined,
     undefined,
     undefined,
@@ -61,14 +51,30 @@ export const deleteAdminAttributeOptionId = async (
 };
 
 /**
- * 品牌删除
+ * 校验公司名称是否唯一
  */
-export const deleteAdminBrandId = async (
+export const getCompanyCheckCompanyNameUnique = async (
+  queryParams: GetCompanyCheckCompanyNameUniqueQueryParams,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysCompanyDTO>> => {
+  return Http.getRequest(
+    "/company/checkCompanyNameUnique",
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取公司级别parentIds 根据公司id递归层级
+ */
+export const getCompanyGetTreeLevelByIdId = async (
   id: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.deleteRequest(
-    template("/admin/brand/{id}", { id }),
+): Promise<SwaggerResponse<ResponseDataString>> => {
+  return Http.getRequest(
+    template("/company/getTreeLevelById/{id}", { id }),
     undefined,
     undefined,
     undefined,
@@ -77,14 +83,14 @@ export const deleteAdminBrandId = async (
 };
 
 /**
- * 分类删除
+ * 根据公司编号查询 编号对应的子公司列表
  */
-export const deleteAdminCategoryId = async (
+export const getCompanySelectChildCompanyByIdId = async (
   id: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.deleteRequest(
-    template("/admin/category/{id}", { id }),
+): Promise<SwaggerResponse<ResponseDataListSysCompanyDTO>> => {
+  return Http.getRequest(
+    template("/company/selectChildCompanyById/{id}", { id }),
     undefined,
     undefined,
     undefined,
@@ -93,14 +99,14 @@ export const deleteAdminCategoryId = async (
 };
 
 /**
- * 服务承诺删除
+ * 获取公司基本信息
  */
-export const deleteAdminCommitmentId = async (
+export const getCompanySelectCompanyInfoByIdId = async (
   id: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.deleteRequest(
-    template("/admin/commitment/{id}", { id }),
+): Promise<SwaggerResponse<ResponseDataSysCompanyDTO>> => {
+  return Http.getRequest(
+    template("/company/selectCompanyInfoById/{id}", { id }),
     undefined,
     undefined,
     undefined,
@@ -109,14 +115,14 @@ export const deleteAdminCommitmentId = async (
 };
 
 /**
- * 商品逻辑删除
+ * 用户认证 是否是超级管理员
  */
-export const deleteAdminGoodsId = async (
-  id: string,
+export const getUserUserId = async (
+  userId: string,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataBoolean>> => {
-  return Http.deleteRequest(
-    template("/admin/goods/{id}", { id }),
+  return Http.getRequest(
+    template("/user/{userId}", { userId }),
     undefined,
     undefined,
     undefined,
@@ -125,79 +131,14 @@ export const deleteAdminGoodsId = async (
 };
 
 /**
- * 标签删除
+ * 用户认证 授权查询
  */
-export const deleteAdminLabelId = async (
-  id: string,
+export const getUserUserName = async (
+  userName: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.deleteRequest(
-    template("/admin/label/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const getAdminAttribute = async (
-  queryParams: GetAdminAttributeQueryParams,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataSysAttributeDto>> => {
+): Promise<SwaggerResponse<ResponseDataSysUserDTO>> => {
   return Http.getRequest(
-    "/admin/attribute",
-    queryParams,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const getAdminAttributeId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataSysAttributeDto>> => {
-  return Http.getRequest(
-    template("/admin/attribute/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const getAdminAttributeOption = async (
-  queryParams: GetAdminAttributeOptionQueryParams,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataSysAttributeOptionDto>> => {
-  return Http.getRequest(
-    "/admin/attributeOption",
-    queryParams,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const getAdminAttributeOptionFindSubsAttrTypeId = async (
-  attrTypeId: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataListSysAttributeOptionDto>> => {
-  return Http.getRequest(
-    template("/admin/attributeOption/findSubs/{attrTypeId}", { attrTypeId }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const getAdminAttributeOptionId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataSysAttributeOptionDto>> => {
-  return Http.getRequest(
-    template("/admin/attributeOption/{id}", { id }),
+    template("/user/{userName}", { userName }),
     undefined,
     undefined,
     undefined,
@@ -206,219 +147,62 @@ export const getAdminAttributeOptionId = async (
 };
 
 /**
- * 品牌列表
+ * 新增公司信息
  */
-export const getAdminBrand = async (
-  queryParams: GetAdminBrandQueryParams,
+export const postCompanyAddCompany = async (
+  requestBody: SysCompanyAddRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataBrandDto>> => {
-  return Http.getRequest(
-    "/admin/brand",
-    queryParams,
+): Promise<SwaggerResponse<ResponseDataSysCompanyDTO>> => {
+  return Http.postRequest(
+    "/company/addCompany",
     undefined,
+    requestBody,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
   );
 };
 
 /**
- * 品牌详情
+ * 编辑公司信息
  */
-export const getAdminBrandId = async (
-  id: string,
+export const postCompanyEditCompany = async (
+  requestBody: SysCompanyUpdateRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataBrandDto>> => {
-  return Http.getRequest(
-    template("/admin/brand/{id}", { id }),
+): Promise<SwaggerResponse<ResponseDataSysCompanyDTO>> => {
+  return Http.postRequest(
+    "/company/editCompany",
     undefined,
-    undefined,
+    requestBody,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
   );
 };
 
 /**
- * 分类列表
+ * 查询公司列表树
  */
-export const getAdminCategory = async (
-  queryParams: GetAdminCategoryQueryParams,
+export const postCompanyListAllSysCompanyTree = async (
+  requestBody: SysCompanyRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataCategoryDto>> => {
-  return Http.getRequest(
-    "/admin/category",
-    queryParams,
+): Promise<SwaggerResponse<ResponseDataListSysCompanyDTO>> => {
+  return Http.postRequest(
+    "/company/listAllSysCompanyTree",
     undefined,
+    requestBody,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
   );
 };
 
 /**
- * 分类详情
+ * 添加字典数据信息
  */
-export const getAdminCategoryCategoryId = async (
-  categoryId: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataCategoryDto>> => {
-  return Http.getRequest(
-    template("/admin/category/{categoryId}", { categoryId }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 查询分类属性集合
- */
-export const getAdminCategoryFindCategoryAttrId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataListSysAttributeOptionDto>> => {
-  return Http.getRequest(
-    template("/admin/category/findCategoryAttr/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 查询子类
- */
-export const getAdminCategoryFindSubsId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataListCategoryDto>> => {
-  return Http.getRequest(
-    template("/admin/category/findSubs/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 服务承诺列表
- */
-export const getAdminCommitment = async (
-  queryParams: GetAdminCommitmentQueryParams,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataCommitmentDto>> => {
-  return Http.getRequest(
-    "/admin/commitment",
-    queryParams,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 服务承诺详情
- */
-export const getAdminCommitmentId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataCommitmentDto>> => {
-  return Http.getRequest(
-    template("/admin/commitment/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 商品详情[范围]
- */
-export const getAdminGoodsFindOneByScope = async (
-  queryParams: GetAdminGoodsFindOneByScopeQueryParams,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataGoodsDto>> => {
-  return Http.getRequest(
-    "/admin/goods/findOneByScope",
-    queryParams,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 商品详情[基本]
- */
-export const getAdminGoodsId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataGoodsDto>> => {
-  return Http.getRequest(
-    template("/admin/goods/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 标签列表
- */
-export const getAdminLabel = async (
-  queryParams: GetAdminLabelQueryParams,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataLabelsDto>> => {
-  return Http.getRequest(
-    "/admin/label",
-    queryParams,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 标签详情
- */
-export const getAdminLabelId = async (
-  id: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataLabelsDto>> => {
-  return Http.getRequest(
-    template("/admin/label/{id}", { id }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 查询库存
- */
-export const getStockFindStockNumGoodsSkuId = async (
-  goodsSkuId: string,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.getRequest(
-    template("/stock/findStockNum/{goodsSkuId}", { goodsSkuId }),
-    undefined,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const postAdminAttribute = async (
-  requestBody: SysAttributeCreateRequest,
+export const postDictAddDictData = async (
+  requestBody: SysDictRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.postRequest(
-    "/admin/attribute",
+    "/dict/addDictData",
     undefined,
     requestBody,
     undefined,
@@ -426,12 +210,15 @@ export const postAdminAttribute = async (
   );
 };
 
-export const postAdminAttributeOption = async (
-  requestBody: SysAttributeOptionCreateRequest,
+/**
+ * 添加字典类型信息
+ */
+export const postDictAddDictType = async (
+  requestBody: SysDictRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.postRequest(
-    "/admin/attributeOption",
+    "/dict/addDictType",
     undefined,
     requestBody,
     undefined,
@@ -440,14 +227,14 @@ export const postAdminAttributeOption = async (
 };
 
 /**
- * 品牌新增
+ * 删除字典数据信息
  */
-export const postAdminBrand = async (
-  requestBody: BrandCreateRequest,
+export const postDictDeleteDictData = async (
+  requestBody: SysDictRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.postRequest(
-    "/admin/brand",
+    "/dict/deleteDictData",
     undefined,
     requestBody,
     undefined,
@@ -456,14 +243,14 @@ export const postAdminBrand = async (
 };
 
 /**
- * 分类新增
+ * 删除字典类型信息
  */
-export const postAdminCategory = async (
-  requestBody: CategoryCreateRequest,
+export const postDictDeleteDictType = async (
+  requestBody: SysDictRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.postRequest(
-    "/admin/category",
+    "/dict/deleteDictType",
     undefined,
     requestBody,
     undefined,
@@ -472,14 +259,14 @@ export const postAdminCategory = async (
 };
 
 /**
- * 服务承诺新增
+ * 编辑字典数据信息
  */
-export const postAdminCommitment = async (
-  requestBody: CommitmentCreateRequest,
+export const postDictEditDictData = async (
+  requestBody: SysDictRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.postRequest(
-    "/admin/commitment",
+    "/dict/editDictData",
     undefined,
     requestBody,
     undefined,
@@ -488,126 +275,14 @@ export const postAdminCommitment = async (
 };
 
 /**
- * 运费模板列表
+ * 编辑字典类型信息
  */
-export const postAdminExpressPageList = async (
-  requestBody: ExpressSearchRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataObject>> => {
-  return Http.postRequest(
-    "/admin/express/pageList",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 批量逻辑删除
- */
-export const postAdminGoodsBatchDelete = async (
-  requestBody: GoodsBatchRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataBoolean>> => {
-  return Http.postRequest(
-    "/admin/goods/batchDelete",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 状态变更(支持批量)
- */
-export const postAdminGoodsChangeState = async (
-  requestBody: GoodsStateRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataBoolean>> => {
-  return Http.postRequest(
-    "/admin/goods/changeState",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 根据ID集合批量查询
- */
-export const postAdminGoodsFindByIds = async (
-  requestBody: GoodsBatchRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataListGoodsDto>> => {
-  return Http.postRequest(
-    "/admin/goods/findByIds",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 商品列表
- */
-export const postAdminGoodsPageList = async (
-  requestBody: GoodsSearchRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataPageDataGoodsDto>> => {
-  return Http.postRequest(
-    "/admin/goods/pageList",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 商品新增
- */
-export const postAdminGoodsSave = async (
-  requestBody: GoodsCreateRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataBoolean>> => {
-  return Http.postRequest(
-    "/admin/goods/save",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 商品编辑
- */
-export const postAdminGoodsUpdate = async (
-  requestBody: GoodsUpdateRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataBoolean>> => {
-  return Http.postRequest(
-    "/admin/goods/update",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/**
- * 标签新增
- */
-export const postAdminLabel = async (
-  requestBody: LabelCreateRequest,
+export const postDictEditDictType = async (
+  requestBody: SysDictRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
   return Http.postRequest(
-    "/admin/label",
+    "/dict/editDictType",
     undefined,
     requestBody,
     undefined,
@@ -616,14 +291,142 @@ export const postAdminLabel = async (
 };
 
 /**
- * 库存发货
+ * 查询字典数据信息列表
  */
-export const postStockDelivery = async (
-  requestBody: DeliveryStockRequest,
+export const postDictListDictDataList = async (
+  requestBody: SysDictRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysDictDataDTO>> => {
+  return Http.postRequest(
+    "/dict/listDictDataList",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询字典类型列表
+ */
+export const postDictListDictTypeList = async (
+  requestBody: SysDictRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataPageDataSysDictTypeDTO>> => {
+  return Http.postRequest(
+    "/dict/listDictTypeList",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询字典数据信息
+ */
+export const postDictSelectDictDataInfo = async (
+  requestBody: SysDictRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysDictDataDTO>> => {
+  return Http.postRequest(
+    "/dict/selectDictDataInfo",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询字典类型信息
+ */
+export const postDictSelectDictTypeInfo = async (
+  requestBody: SysDictRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysDictTypeDTO>> => {
+  return Http.postRequest(
+    "/dict/selectDictTypeInfo",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 新增菜单信息
+ */
+export const postMenuAddMenu = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/menu/addMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 校验菜单名称是否唯一
+ */
+export const postMenuCheckMenuNameUnique = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/checkMenuNameUnique",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 删除菜单信息
+ */
+export const postMenuDeleteMenu = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/menu/deleteMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 编辑菜单信息
+ */
+export const postMenuEditMenu = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/menu/editMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取菜单级别parentIds 根据菜单id递归层级
+ */
+export const postMenuGetTreeLevelById = async (
+  requestBody: SysMenuRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataString>> => {
   return Http.postRequest(
-    "/stock/delivery",
+    "/menu/getTreeLevelById",
     undefined,
     requestBody,
     undefined,
@@ -632,14 +435,171 @@ export const postStockDelivery = async (
 };
 
 /**
- * 锁定库存
+ * 查询菜单列表
  */
-export const postStockLockStock = async (
-  requestBody: LockStockRequest,
+export const postMenuListAllSysMenu = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/listAllSysMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询菜单列表树
+ */
+export const postMenuListAllSysMenuTree = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/listAllSysMenuTree",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+export const postMenuListSysMenu = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataPageDataSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/listSysMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 根据菜单编号查询 编号对应的子菜单列表
+ */
+export const postMenuSelectChildMenuById = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/selectChildMenuById",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取菜单基本信息
+ */
+export const postMenuSelectMenuInfoById = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/selectMenuInfoById",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询所有菜单以及菜单对应的上级菜单名称
+ */
+export const postMenuSelectSysMenulist = async (
+  requestBody: SysMenuRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/menu/selectSysMenulist",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 新增机构部门信息
+ */
+export const postOfficeAddOffice = async (
+  requestBody: SysOfficeRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/office/addOffice",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 校验机构部门名称是否唯一
+ */
+export const postOfficeCheckOfficeNameUnique = async (
+  requestBody: SysOfficeRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysOfficeDTO>> => {
+  return Http.postRequest(
+    "/office/checkOfficeNameUnique",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 删除机构部门信息
+ */
+export const postOfficeDeleteOffice = async (
+  requestBody: SysOfficeRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/office/deleteOffice",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 编辑机构部门信息
+ */
+export const postOfficeEditOffice = async (
+  requestBody: SysOfficeRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/office/editOffice",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取机构部门级别parentIds 根据机构部门id递归层级
+ */
+export const postOfficeGetTreeLevelById = async (
+  requestBody: SysOfficeRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataString>> => {
   return Http.postRequest(
-    "/stock/lockStock",
+    "/office/getTreeLevelById",
     undefined,
     requestBody,
     undefined,
@@ -648,40 +608,14 @@ export const postStockLockStock = async (
 };
 
 /**
- * 释放库存
+ * 查询机构部门列表树
  */
-export const postStockReleaseStock = async (
-  requestBody: ReleaseStockRequest,
+export const postOfficeListAllSysOfficeTree = async (
+  requestBody: SysOfficeRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataString>> => {
+): Promise<SwaggerResponse<ResponseDataListSysOfficeDTO>> => {
   return Http.postRequest(
-    "/stock/releaseStock",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const putAdminAttribute = async (
-  requestBody: SysAttributeUpdateRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/attribute",
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-export const putAdminAttributeOption = async (
-  requestBody: SysAttributeOptionUpdateRequest,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/attributeOption",
+    "/office/listAllSysOfficeTree",
     undefined,
     requestBody,
     undefined,
@@ -690,14 +624,14 @@ export const putAdminAttributeOption = async (
 };
 
 /**
- * 品牌编辑
+ * 分页查询机构部门父列表
  */
-export const putAdminBrand = async (
-  requestBody: BrandUpdateRequest,
+export const postOfficeListSysOffice = async (
+  requestBody: SysOfficeRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/brand",
+): Promise<SwaggerResponse<ResponseDataPageDataSysOfficeDTO>> => {
+  return Http.postRequest(
+    "/office/listSysOffice",
     undefined,
     requestBody,
     undefined,
@@ -706,14 +640,14 @@ export const putAdminBrand = async (
 };
 
 /**
- * 分类编辑
+ * 根据机构部门编号查询 编号对应的子机构部门列表
  */
-export const putAdminCategory = async (
-  requestBody: CategoryUpdateRequest,
+export const postOfficeSelectChildOfficeById = async (
+  requestBody: SysOfficeRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/category",
+): Promise<SwaggerResponse<ResponseDataListSysOfficeDTO>> => {
+  return Http.postRequest(
+    "/office/selectChildOfficeById",
     undefined,
     requestBody,
     undefined,
@@ -722,14 +656,14 @@ export const putAdminCategory = async (
 };
 
 /**
- * 绑定属性
+ * 获取机构部门基本信息
  */
-export const putAdminCategoryBindAttr = async (
-  requestBody: CategoryBindAttrRequest,
+export const postOfficeSelectOfficeInfoById = async (
+  requestBody: SysOfficeRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/category/bindAttr",
+): Promise<SwaggerResponse<ResponseDataSysOfficeDTO>> => {
+  return Http.postRequest(
+    "/office/selectOfficeInfoById",
     undefined,
     requestBody,
     undefined,
@@ -738,14 +672,14 @@ export const putAdminCategoryBindAttr = async (
 };
 
 /**
- * 服务承诺编辑
+ * 查询所有机构部门以及机构部门对应的上级机构部门名称
  */
-export const putAdminCommitment = async (
-  requestBody: CommitmentUpdateRequest,
+export const postOfficeSelectSysOfficelist = async (
+  requestBody: SysOfficeRequest,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/commitment",
+): Promise<SwaggerResponse<ResponseDataListSysOfficeDTO>> => {
+  return Http.postRequest(
+    "/office/selectSysOfficelist",
     undefined,
     requestBody,
     undefined,
@@ -754,14 +688,14 @@ export const putAdminCommitment = async (
 };
 
 /**
- * 标签编辑
+ * 新增角色信息
  */
-export const putAdminLabel = async (
-  requestBody: LabelUpdateRequest,
+export const postRoleAddRole = async (
+  requestBody: SysRoleRequest,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<ResponseDataInteger>> => {
-  return Http.putRequest(
-    "/admin/label",
+  return Http.postRequest(
+    "/role/addRole",
     undefined,
     requestBody,
     undefined,
@@ -769,56 +703,379 @@ export const putAdminLabel = async (
   );
 };
 
-export interface BrandCreateRequest {
-  /**
-      * 
-品牌描述
-      */
-  brandDesc?: string;
-  /**
-      * 
-品牌logo
-      */
-  brandLogoUrl?: string;
-  /**
-      * 
-品牌名称
-      */
-  brandName?: string;
+/**
+ * 删除角色信息
+ */
+export const postRoleDeleteRole = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/role/deleteRole",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 编辑角色信息
+ */
+export const postRoleEditRole = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/role/editRole",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取所有角色列表
+ */
+export const postRoleListAllSysRole = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysRoleDTO>> => {
+  return Http.postRequest(
+    "/role/listAllSysRole",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 分页查询角色列表
+ */
+export const postRoleListSysRole = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataPageDataSysRoleDTO>> => {
+  return Http.postRequest(
+    "/role/listSysRole",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取所有菜单权限树
+ */
+export const postRoleSelectMenuTree = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/role/selectMenuTree",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询角色详情
+ */
+export const postRoleSelectRoleInfo = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysRoleDTO>> => {
+  return Http.postRequest(
+    "/role/selectRoleInfo",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取角色对应的菜单权限树
+ */
+export const postRoleSelectRoleMenuTree = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/role/selectRoleMenuTree",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 新增用户信息
+ */
+export const postUserAddUser = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/addUser",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 添加用户菜单权限
+ */
+export const postUserAddUserMenu = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/addUserMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 添加用户角色
+ */
+export const postUserAddUserRole = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/addUserRole",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 用户密码修改
+ */
+export const postUserChangePassword = async (
+  requestBody: SysUserPassRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/changePassword",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 删除用户信息
+ */
+export const postUserDeleteUser = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/deleteUser",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 编辑用户信息
+ */
+export const postUserEditUser = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/editUser",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 编辑用户菜单权限
+ */
+export const postUserEditUserMenu = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/editUserMenu",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 编辑用户角色
+ */
+export const postUserEditUserRole = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataInteger>> => {
+  return Http.postRequest(
+    "/user/editUserRole",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 分页查询用户列表
+ */
+export const postUserList = async (
+  requestBody: ListSysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataPageDataSysUserDTO>> => {
+  return Http.postRequest(
+    "/user/list",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 查询用户详情
+ */
+export const postUserSelectUserInfo = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataSysUserDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserInfo",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取用户匹配的菜单权限树
+ */
+export const postUserSelectUserMenuTree = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserMenuTree",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取用户匹配的菜单权限列表
+ */
+export const postUserSelectUserMenulist = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserMenulist",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取用户角色列表
+ */
+export const postUserSelectUserRoleList = async (
+  requestBody: SysRoleRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysUserRoleDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserRoleList",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 获取用户所属角色匹配的菜单权限列表
+ */
+export const postUserSelectUserRoleMenuList = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserRoleMenuList",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 用户认证 获取当前用户所拥有的菜单URL union
+ */
+export const postUserSelectUserUnionMenuUrlList = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserUnionMenuUrlList",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/**
+ * 用户认证  获取所有 用户角色菜单权限，用户菜单权限 union
+ */
+export const postUserSelectUserUnionPermissionList = async (
+  requestBody: SysUserRequest,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<ResponseDataListSysMenuDTO>> => {
+  return Http.postRequest(
+    "/user/selectUserUnionPermissionList",
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+export interface GetCompanyCheckCompanyNameUniqueQueryParams {
+  request?: SysCompanyRequest;
 }
 
-export interface BrandDto {
-  /**
-      * 
-品牌描述
-      */
-  brandDesc?: string;
-  /**
-      * 
-品牌logo
-      */
-  brandLogoUrl?: string;
-  /**
-      * 
-品牌名称
-      */
-  brandName?: string;
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  id?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface BrandSearchRequest {
+export interface ListSysUserRequest {
   /**
       * 
 当前页码
@@ -834,293 +1091,9 @@ export interface BrandSearchRequest {
   pageSize: number;
   /**
       * 
-品牌名称
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
       */
-  brandName?: string;
-  /**
-      * 
-全局唯一序列
-      */
-  requestNo?: string;
-}
-
-export interface BrandUpdateRequest {
-  /**
-      * 
-品牌ID
-      */
-  id: string;
-  /**
-      * 
-品牌描述
-      */
-  brandDesc?: string;
-  /**
-      * 
-品牌logo
-      */
-  brandLogoUrl?: string;
-  /**
-      * 
-品牌名称
-      */
-  brandName?: string;
-}
-
-export interface CategoryBindAttrRequest {
-  /**
-      * 
-属性类型ID
-      */
-  attrTypeId: string;
-  /**
-      * 
-分类ID
-      */
-  id: string;
-}
-
-export interface CategoryCreateRequest {
-  /**
-      * 
-父类ID
-      */
-  parentId: string;
-  /**
-      * 
-分类名称
-      */
-  categoryName?: string;
-}
-
-export interface CategoryDto {
-  /**
-      * 
-属性类型ID
-      */
-  attrTypeId?: string;
-  /**
-      * 
-分类图标
-      */
-  categoryIcon?: string;
-  /**
-      * 
-分类名称
-      */
-  categoryName?: string;
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  /**
-      * 
-ID
-      */
-  id?: string;
-  /**
-      * 
-是否叶子节点
-      */
-  leafNode?: boolean;
-  /**
-      * 
-父类ID
-      */
-  parentId?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface CategorySearchRequest {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage: number;
-  /**
-      * 
-每页查询数量
-       Format: int64
-       maxLength: 100
-      */
-  pageSize: number;
-  /**
-      * 
-分类ID
-      */
-  categoryId?: string;
-  /**
-      * 
-分类名称
-      */
-  categoryName?: string;
-  /**
-      * 
-父类ID
-      */
-  parentId?: string;
-  /**
-      * 
-全局唯一序列
-      */
-  requestNo?: string;
-}
-
-export interface CategoryUpdateRequest {
-  /**
-      * 
-分类ID
-      */
-  id: string;
-  /**
-      * 
-父类ID
-      */
-  parentId: string;
-  /**
-      * 
-分类名称
-      */
-  categoryName?: string;
-}
-
-export interface CommitmentCreateRequest {
-  /**
-      * 
-服务承诺描述
-      */
-  commitmentDesc?: string;
-  /**
-      * 
-服务承诺图标
-      */
-  commitmentIcon?: string;
-  /**
-      * 
-服务承诺名称
-      */
-  commitmentName?: string;
-}
-
-export interface CommitmentDto {
-  /**
-      * 
-承诺描述
-      */
-  commitmentDesc?: string;
-  /**
-      * 
-承诺图标
-      */
-  commitmentIcon?: string;
-  /**
-      * 
-承诺名称
-      */
-  commitmentName?: string;
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  /**
-      * 
-ID
-      */
-  id?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface CommitmentSearchRequest {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage: number;
-  /**
-      * 
-每页查询数量
-       Format: int64
-       maxLength: 100
-      */
-  pageSize: number;
-  /**
-      * 
-服务承诺名称
-      */
-  commitmentName?: string;
-  /**
-      * 
-全局唯一序列
-      */
-  requestNo?: string;
-}
-
-export interface CommitmentUpdateRequest {
-  /**
-      * 
-服务承诺ID
-      */
-  id: string;
-  /**
-      * 
-服务承诺描述
-      */
-  commitmentDesc?: string;
-  /**
-      * 
-服务承诺图标
-      */
-  commitmentIcon?: string;
-  /**
-      * 
-服务承诺名称
-      */
-  commitmentName?: string;
-}
-
-export interface DeliveryStockRequest {
-  /**
-      * 
-库存锁定ID
-      */
-  lockStockId: string;
-  /**
-      * 
-供应链商品skuId
-      */
-  chainGoodsSkuId?: string;
-}
-
-export interface ExpressSearchRequest {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage: number;
-  /**
-      * 
-每页查询数量
-       Format: int64
-       maxLength: 100
-      */
-  pageSize: number;
+  dataStatus?: string;
   /**
       * 
 全局唯一序列
@@ -1128,626 +1101,12 @@ export interface ExpressSearchRequest {
   requestNo?: string;
   /**
       * 
-模板名称
+角色ID
       */
-  templatesName?: string;
+  roleId?: string;
 }
 
-export interface GetAdminAttributeOptionQueryParams {
-  form?: SysAttributeOptionSearchRequest;
-}
-
-export interface GetAdminAttributeQueryParams {
-  form?: SysAttributeSearchRequest;
-}
-
-export interface GetAdminBrandQueryParams {
-  form?: BrandSearchRequest;
-}
-
-export interface GetAdminCategoryQueryParams {
-  form?: CategorySearchRequest;
-}
-
-export interface GetAdminCommitmentQueryParams {
-  form?: CommitmentSearchRequest;
-}
-
-export interface GetAdminGoodsFindOneByScopeQueryParams {
-  form?: GoodsSearchRequest;
-}
-
-export interface GetAdminLabelQueryParams {
-  form?: LabelSearchRequest;
-}
-
-export interface GoodsBatchRequest {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage: number;
-  /**
-      * 
-商品ID集合
-      */
-  goodsIds: string[];
-  /**
-      * 
-每页查询数量
-       Format: int64
-       maxLength: 100
-      */
-  pageSize: number;
-  /**
-      * 
-品牌ID
-      */
-  brandId?: string;
-  /**
-      * 
-商品分类ID
-      */
-  categoryId?: string;
-  /**
-      * 
-服务承诺ID
-      */
-  commitmentId?: string;
-  /**
-      * 
-数据范围
-      */
-  dataScope?:
-    | "BASE"
-    | "SKU"
-    | "DESC"
-    | "LABELS"
-    | "COMMITMENT"
-    | "LOGISTICS"
-    | "ALL"[];
-  /**
-      * 
-商品ID
-      */
-  goodsId?: string;
-  /**
-      * 
-商品名称
-      */
-  goodsName?: string;
-  /**
-      * 
-商品类型
-      */
-  goodsType?: "REAL" | "VIRTUAL";
-  /**
-      * 
-标签ID
-      */
-  labelId?: string;
-  /**
-      * 
-全局唯一序列
-      */
-  requestNo?: string;
-  /**
-      * 
-商品状态
-      */
-  state?: "INIT" | "UP" | "DOWN";
-  /**
-      * 
-状态过滤
-      */
-  stateFilter?: string[];
-}
-
-export interface GoodsCreateRequest {
-  /**
-      * 
-品牌名称
-      */
-  brandId: string;
-  /**
-      * 
-商品分类ID
-      */
-  categoryId: string;
-  /**
-      * 
-类别路径编码
-      */
-  categoryPathCode: string;
-  /**
-      * 
-类别路径名称
-      */
-  categoryPathName: string;
-  /**
-      * 
-商品图片
-      */
-  goodsImageUrls: string[];
-  /**
-      * 
-商品类型
-      */
-  goodsType: "REAL" | "VIRTUAL";
-  /**
-      * 
-sku集合
-      */
-  skuList: SkuDto[];
-  /**
-      * 
-规格类型(UNIFIED 统一规格, CUSTOM 自定义)
-      */
-  specsType: "UNIFIED" | "CUSTOM";
-  /**
-      * 
-商品状态(初始、上架、下架)
-      */
-  state: "INIT" | "UP" | "DOWN";
-  /**
-      * 
-服务承诺
-      */
-  commitmentIds?: string[];
-  goodsDetails?: GoodsDetailsDto;
-  /**
-      * 
-商品名称
-      */
-  goodsName?: string;
-  /**
-      * 
-商品标题
-      */
-  goodsTitle?: string;
-  /**
-      * 
-商品标签
-      */
-  labelIds?: string[];
-  logistics?: LogisticsDto;
-  /**
-      * 
-总规格组
-      */
-  skuGroups?: SkuGroupDto[];
-}
-
-export interface GoodsDetailsDto {
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  /**
-      * 
-商品描述
-      */
-  goodsDesc?: string;
-  /**
-      * 
-商品属性
-      */
-  properties?: KeyValueDto[];
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface GoodsDto {
-  /**
-      * 
-品牌ID
-      */
-  brandId?: string;
-  /**
-      * 
-分类ID
-      */
-  categoryId?: string;
-  /**
-      * 
-类别路径编码
-      */
-  categoryPathCode?: string;
-  /**
-      * 
-类别路径名称
-      */
-  categoryPathName?: string;
-  /**
-      * 
-服务承诺
-      */
-  commitmentIds?: string[];
-  /**
-      * 
-创建时间
-      */
-  createTime?: string;
-  goodsDetails?: GoodsDetailsDto;
-  /**
-      * 
-商品图集
-      */
-  goodsImageUrls?: string[];
-  /**
-      * 
-商品名称
-      */
-  goodsName?: string;
-  /**
-      * 
-商品状态(INIT初始、UP上架、DOWN下架)
-      */
-  goodsState?: string;
-  /**
-      * 
-商品标题
-      */
-  goodsTitle?: string;
-  /**
-      * 
-商品类型(REAL实物、VIRTUAL虚拟)
-      */
-  goodsType?: string;
-  /**
-      * 
-ID
-      */
-  id?: string;
-  labelIds?: string[];
-  logistics?: LogisticsDto;
-  /**
-      * 
-可使用积分抵消
-       Format: int32
-      */
-  points?: number;
-  /**
-      * 
-总规格组
-      */
-  skuGroups?: SkuGroupDto[];
-  /**
-      * 
-规格(sku)
-      */
-  skuList?: SkuDto[];
-  /**
-      * 
-排序
-       Format: int32
-      */
-  sort?: number;
-  /**
-      * 
-sku类型(UNIFIED统一、CUSTOM自定义)
-      */
-  specsType?: string;
-  /**
-      * 
-编辑时间
-      */
-  updateTime?: string;
-}
-
-export interface GoodsSearchRequest {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage: number;
-  /**
-      * 
-每页查询数量
-       Format: int64
-       maxLength: 100
-      */
-  pageSize: number;
-  /**
-      * 
-品牌ID
-      */
-  brandId?: string;
-  /**
-      * 
-商品分类ID
-      */
-  categoryId?: string;
-  /**
-      * 
-服务承诺ID
-      */
-  commitmentId?: string;
-  /**
-      * 
-数据范围
-      */
-  dataScope?:
-    | "BASE"
-    | "SKU"
-    | "DESC"
-    | "LABELS"
-    | "COMMITMENT"
-    | "LOGISTICS"
-    | "ALL"[];
-  /**
-      * 
-商品ID
-      */
-  goodsId?: string;
-  /**
-      * 
-商品名称
-      */
-  goodsName?: string;
-  /**
-      * 
-商品类型
-      */
-  goodsType?: "REAL" | "VIRTUAL";
-  /**
-      * 
-标签ID
-      */
-  labelId?: string;
-  /**
-      * 
-全局唯一序列
-      */
-  requestNo?: string;
-  /**
-      * 
-商品状态
-      */
-  state?: "INIT" | "UP" | "DOWN";
-  /**
-      * 
-状态过滤
-      */
-  stateFilter?: string[];
-}
-
-export interface GoodsStateRequest {
-  /**
-      * 
-商品ID集合
-      */
-  ids: string[];
-  /**
-      * 
-商品状态(初始/上架/下架/删除
-      */
-  state?: "INIT" | "UP" | "DOWN";
-}
-
-export interface GoodsUpdateRequest {
-  /**
-      * 
-品牌名称
-      */
-  brandId: string;
-  /**
-      * 
-商品分类ID
-      */
-  categoryId: string;
-  /**
-      * 
-类别路径编码
-      */
-  categoryPathCode: string;
-  /**
-      * 
-类别路径名称
-      */
-  categoryPathName: string;
-  /**
-      * 
-商品ID
-      */
-  goodsId: string;
-  /**
-      * 
-商品图片
-      */
-  goodsImageUrls: string[];
-  /**
-      * 
-商品类型
-      */
-  goodsType: "REAL" | "VIRTUAL";
-  /**
-      * 
-sku集合
-      */
-  skuList: SkuDto[];
-  /**
-      * 
-规格类型(UNIFIED 统一规格, CUSTOM 自定义)
-      */
-  specsType: "UNIFIED" | "CUSTOM";
-  /**
-      * 
-商品状态(初始、上架、下架)
-      */
-  state: "INIT" | "UP" | "DOWN";
-  /**
-      * 
-服务承诺
-      */
-  commitmentIds?: string[];
-  goodsDetails?: GoodsDetailsDto;
-  /**
-      * 
-商品名称
-      */
-  goodsName?: string;
-  /**
-      * 
-商品标题
-      */
-  goodsTitle?: string;
-  /**
-      * 
-商品标签
-      */
-  labelIds?: string[];
-  logistics?: LogisticsDto;
-  /**
-      * 
-总规格组
-      */
-  skuGroups?: SkuGroupDto[];
-}
-
-export interface KeyValueDto {
-  /**
-      * 
-属性码
-      */
-  key?: object;
-  /**
-      * 
-属性值
-      */
-  value?: object;
-}
-
-export interface LabelCreateRequest {
-  /**
-      * 
-标签名称
-      */
-  labelName?: string;
-}
-
-export interface LabelSearchRequest {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage: number;
-  /**
-      * 
-每页查询数量
-       Format: int64
-       maxLength: 100
-      */
-  pageSize: number;
-  /**
-      * 
-标签名称
-      */
-  labelName?: string;
-  /**
-      * 
-全局唯一序列
-      */
-  requestNo?: string;
-}
-
-export interface LabelUpdateRequest {
-  /**
-      * 
-标签ID
-      */
-  id: string;
-  /**
-      * 
-标签名称
-      */
-  labelName?: string;
-}
-
-export interface LabelsDto {
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  /**
-      * 
-标签ID
-      */
-  id?: string;
-  /**
-      * 
-标签名称
-      */
-  labelName?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface LockStockRequest {
-  /**
-      * 
-供应链商品skuId
-      */
-  chainGoodsSkuId: string;
-  /**
-      * 
-订单号
-      */
-  orderNo: string;
-  /**
-      * 
-供应链商品ID
-      */
-  chainGoodsId?: string;
-}
-
-export interface LogisticsDto {
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  /**
-      * 
-运费金额(单位:分)
-       Format: int32
-      */
-  expressFee?: number;
-  /**
-      * 
-运费模板ID
-      */
-  expressTemplateId?: string;
-  /**
-      * 
-运费类型(统一运费、运费模板)
-      */
-  expressType?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface PageDataBrandDto {
+export interface PageDataSysDictTypeDTO {
   /**
       * 
 当前页码
@@ -1764,7 +1123,7 @@ export interface PageDataBrandDto {
       * 
 数据集
       */
-  records?: BrandDto[];
+  records?: SysDictTypeDTO[];
   /**
       * 
 数据总数
@@ -1773,7 +1132,7 @@ export interface PageDataBrandDto {
   totalSize?: number;
 }
 
-export interface PageDataCategoryDto {
+export interface PageDataSysMenuDTO {
   /**
       * 
 当前页码
@@ -1790,7 +1149,7 @@ export interface PageDataCategoryDto {
       * 
 数据集
       */
-  records?: CategoryDto[];
+  records?: SysMenuDTO[];
   /**
       * 
 数据总数
@@ -1799,7 +1158,7 @@ export interface PageDataCategoryDto {
   totalSize?: number;
 }
 
-export interface PageDataCommitmentDto {
+export interface PageDataSysOfficeDTO {
   /**
       * 
 当前页码
@@ -1816,7 +1175,7 @@ export interface PageDataCommitmentDto {
       * 
 数据集
       */
-  records?: CommitmentDto[];
+  records?: SysOfficeDTO[];
   /**
       * 
 数据总数
@@ -1825,7 +1184,7 @@ export interface PageDataCommitmentDto {
   totalSize?: number;
 }
 
-export interface PageDataGoodsDto {
+export interface PageDataSysRoleDTO {
   /**
       * 
 当前页码
@@ -1842,7 +1201,7 @@ export interface PageDataGoodsDto {
       * 
 数据集
       */
-  records?: GoodsDto[];
+  records?: SysRoleDTO[];
   /**
       * 
 数据总数
@@ -1851,7 +1210,7 @@ export interface PageDataGoodsDto {
   totalSize?: number;
 }
 
-export interface PageDataLabelsDto {
+export interface PageDataSysUserDTO {
   /**
       * 
 当前页码
@@ -1868,104 +1227,13 @@ export interface PageDataLabelsDto {
       * 
 数据集
       */
-  records?: LabelsDto[];
+  records?: SysUserDTO[];
   /**
       * 
 数据总数
        Format: int64
       */
   totalSize?: number;
-}
-
-export interface PageDataObject {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage?: number;
-  /**
-      * 
-每页总数
-       Format: int64
-      */
-  pageSize?: number;
-  /**
-      * 
-数据集
-      */
-  records?: object[];
-  /**
-      * 
-数据总数
-       Format: int64
-      */
-  totalSize?: number;
-}
-
-export interface PageDataSysAttributeDto {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage?: number;
-  /**
-      * 
-每页总数
-       Format: int64
-      */
-  pageSize?: number;
-  /**
-      * 
-数据集
-      */
-  records?: SysAttributeDto[];
-  /**
-      * 
-数据总数
-       Format: int64
-      */
-  totalSize?: number;
-}
-
-export interface PageDataSysAttributeOptionDto {
-  /**
-      * 
-当前页码
-       Format: int64
-      */
-  currentPage?: number;
-  /**
-      * 
-每页总数
-       Format: int64
-      */
-  pageSize?: number;
-  /**
-      * 
-数据集
-      */
-  records?: SysAttributeOptionDto[];
-  /**
-      * 
-数据总数
-       Format: int64
-      */
-  totalSize?: number;
-}
-
-export interface ReleaseStockRequest {
-  /**
-      * 
-库存锁定ID
-      */
-  lockStockId: string;
-  /**
-      * 
-供应链商品skuId
-      */
-  chainGoodsSkuId?: string;
 }
 
 export interface ResponseDataBoolean {
@@ -1979,66 +1247,6 @@ export interface ResponseDataBoolean {
 数据集
       */
   data?: boolean;
-  /**
-      * 
-描述
-      */
-  message?: string;
-  success?: boolean;
-}
-
-export interface ResponseDataBrandDto {
-  /**
-      * 
-状态码
-      */
-  code?: string;
-  data?: BrandDto;
-  /**
-      * 
-描述
-      */
-  message?: string;
-  success?: boolean;
-}
-
-export interface ResponseDataCategoryDto {
-  /**
-      * 
-状态码
-      */
-  code?: string;
-  data?: CategoryDto;
-  /**
-      * 
-描述
-      */
-  message?: string;
-  success?: boolean;
-}
-
-export interface ResponseDataCommitmentDto {
-  /**
-      * 
-状态码
-      */
-  code?: string;
-  data?: CommitmentDto;
-  /**
-      * 
-描述
-      */
-  message?: string;
-  success?: boolean;
-}
-
-export interface ResponseDataGoodsDto {
-  /**
-      * 
-状态码
-      */
-  code?: string;
-  data?: GoodsDto;
   /**
       * 
 描述
@@ -2067,22 +1275,7 @@ export interface ResponseDataInteger {
   success?: boolean;
 }
 
-export interface ResponseDataLabelsDto {
-  /**
-      * 
-状态码
-      */
-  code?: string;
-  data?: LabelsDto;
-  /**
-      * 
-描述
-      */
-  message?: string;
-  success?: boolean;
-}
-
-export interface ResponseDataListCategoryDto {
+export interface ResponseDataListSysCompanyDTO {
   /**
       * 
 状态码
@@ -2092,7 +1285,7 @@ export interface ResponseDataListCategoryDto {
       * 
 数据集
       */
-  data?: CategoryDto[];
+  data?: SysCompanyDTO[];
   /**
       * 
 描述
@@ -2101,7 +1294,7 @@ export interface ResponseDataListCategoryDto {
   success?: boolean;
 }
 
-export interface ResponseDataListGoodsDto {
+export interface ResponseDataListSysDictDataDTO {
   /**
       * 
 状态码
@@ -2111,7 +1304,7 @@ export interface ResponseDataListGoodsDto {
       * 
 数据集
       */
-  data?: GoodsDto[];
+  data?: SysDictDataDTO[];
   /**
       * 
 描述
@@ -2120,7 +1313,7 @@ export interface ResponseDataListGoodsDto {
   success?: boolean;
 }
 
-export interface ResponseDataListSysAttributeOptionDto {
+export interface ResponseDataListSysMenuDTO {
   /**
       * 
 状态码
@@ -2130,7 +1323,7 @@ export interface ResponseDataListSysAttributeOptionDto {
       * 
 数据集
       */
-  data?: SysAttributeOptionDto[];
+  data?: SysMenuDTO[];
   /**
       * 
 描述
@@ -2139,13 +1332,17 @@ export interface ResponseDataListSysAttributeOptionDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataBrandDto {
+export interface ResponseDataListSysOfficeDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataBrandDto;
+  /**
+      * 
+数据集
+      */
+  data?: SysOfficeDTO[];
   /**
       * 
 描述
@@ -2154,13 +1351,17 @@ export interface ResponseDataPageDataBrandDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataCategoryDto {
+export interface ResponseDataListSysRoleDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataCategoryDto;
+  /**
+      * 
+数据集
+      */
+  data?: SysRoleDTO[];
   /**
       * 
 描述
@@ -2169,13 +1370,17 @@ export interface ResponseDataPageDataCategoryDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataCommitmentDto {
+export interface ResponseDataListSysUserRoleDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataCommitmentDto;
+  /**
+      * 
+数据集
+      */
+  data?: SysUserRoleDTO[];
   /**
       * 
 描述
@@ -2184,13 +1389,13 @@ export interface ResponseDataPageDataCommitmentDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataGoodsDto {
+export interface ResponseDataPageDataSysDictTypeDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataGoodsDto;
+  data?: PageDataSysDictTypeDTO;
   /**
       * 
 描述
@@ -2199,13 +1404,13 @@ export interface ResponseDataPageDataGoodsDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataLabelsDto {
+export interface ResponseDataPageDataSysMenuDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataLabelsDto;
+  data?: PageDataSysMenuDTO;
   /**
       * 
 描述
@@ -2214,13 +1419,13 @@ export interface ResponseDataPageDataLabelsDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataObject {
+export interface ResponseDataPageDataSysOfficeDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataObject;
+  data?: PageDataSysOfficeDTO;
   /**
       * 
 描述
@@ -2229,13 +1434,13 @@ export interface ResponseDataPageDataObject {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataSysAttributeDto {
+export interface ResponseDataPageDataSysRoleDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataSysAttributeDto;
+  data?: PageDataSysRoleDTO;
   /**
       * 
 描述
@@ -2244,13 +1449,13 @@ export interface ResponseDataPageDataSysAttributeDto {
   success?: boolean;
 }
 
-export interface ResponseDataPageDataSysAttributeOptionDto {
+export interface ResponseDataPageDataSysUserDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: PageDataSysAttributeOptionDto;
+  data?: PageDataSysUserDTO;
   /**
       * 
 描述
@@ -2278,13 +1483,13 @@ export interface ResponseDataString {
   success?: boolean;
 }
 
-export interface ResponseDataSysAttributeDto {
+export interface ResponseDataSysCompanyDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: SysAttributeDto;
+  data?: SysCompanyDTO;
   /**
       * 
 描述
@@ -2293,13 +1498,13 @@ export interface ResponseDataSysAttributeDto {
   success?: boolean;
 }
 
-export interface ResponseDataSysAttributeOptionDto {
+export interface ResponseDataSysDictDataDTO {
   /**
       * 
 状态码
       */
   code?: string;
-  data?: SysAttributeOptionDto;
+  data?: SysDictDataDTO;
   /**
       * 
 描述
@@ -2308,175 +1513,82 @@ export interface ResponseDataSysAttributeOptionDto {
   success?: boolean;
 }
 
-export interface SkuDto {
+export interface ResponseDataSysDictTypeDTO {
   /**
       * 
-创建时间
+状态码
       */
-  createTime?: string;
+  code?: string;
+  data?: SysDictTypeDTO;
   /**
       * 
-规格ID
+描述
       */
-  id?: string;
-  /**
-      * 
-划线价(单位: 分)
-       Format: int32
-      */
-  marketPrice?: number;
-  /**
-      * 
-销售价(单位: 分)
-       Format: int32
-      */
-  sellPrice?: number;
-  /**
-      * 
-sku主图
-      */
-  skuMainImage?: string;
-  /**
-      * 
-规格码
-      */
-  specCode?: KeyValueDto[];
-  /**
-      * 
-规格名称
-      */
-  specName?: KeyValueDto[];
-  /**
-      * 
-编辑时间
-      */
-  updateTime?: string;
-  /**
-      * 
-重量(单位: KG)
-       Format: double
-      */
-  weight?: number;
+  message?: string;
+  success?: boolean;
 }
 
-export interface SkuGroupDto {
+export interface ResponseDataSysMenuDTO {
   /**
       * 
-选项集合
+状态码
       */
-  items?: KeyValueDto[];
+  code?: string;
+  data?: SysMenuDTO;
   /**
       * 
-属性码
+描述
       */
-  key?: string;
-  /**
-      * 
-属性值
-      */
-  value?: string;
+  message?: string;
+  success?: boolean;
 }
 
-export interface SysAttributeCreateRequest {
+export interface ResponseDataSysOfficeDTO {
   /**
       * 
-属性类型名称
+状态码
       */
-  attrTypeName?: string;
+  code?: string;
+  data?: SysOfficeDTO;
   /**
       * 
-属性适用类型（GOODS商品，SALES销售）
+描述
       */
-  attrUsedType?: "GOODS" | "SALES";
+  message?: string;
+  success?: boolean;
 }
 
-export interface SysAttributeDto {
+export interface ResponseDataSysRoleDTO {
   /**
       * 
-属性个数
-       Format: int32
+状态码
       */
-  attrNumber?: number;
+  code?: string;
+  data?: SysRoleDTO;
   /**
       * 
-属性类型名称
+描述
       */
-  attrTypeName?: string;
-  /**
-      * 
-属性适用类型（GOODS商品，SALES销售）
-      */
-  attrUsedType?: string;
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  id?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
+  message?: string;
+  success?: boolean;
 }
 
-export interface SysAttributeOptionCreateRequest {
+export interface ResponseDataSysUserDTO {
   /**
       * 
-属性类型ID
+状态码
       */
-  attrTypeId: string;
+  code?: string;
+  data?: SysUserDTO;
   /**
       * 
-属性类型名称
+描述
       */
-  attrOptionName?: string;
-  /**
-      * 
-录入方式（FIXED 固定, MANUAL手动）
-      */
-  entryMode?: string;
+  message?: string;
+  success?: boolean;
 }
 
-export interface SysAttributeOptionDto {
-  /**
-      * 
-属性值名称
-      */
-  attrOptionName?: string;
-  /**
-      * 
-属性类型ID
-      */
-  attrTypeId?: string;
-  /**
-      * 
-属性类型名称
-      */
-  attrTypeName?: string;
-  /**
-      * 
-创建时间
-       Format: date-time
-      */
-  createTime?: string;
-  /**
-      * 
-录入方式（FIXED 固定, MANUAL手动）
-      */
-  entryMode?: string;
-  id?: string;
-  /**
-      * 
-编辑时间
-       Format: date-time
-      */
-  updateTime?: string;
-}
-
-export interface SysAttributeOptionSearchRequest {
+export interface SysCompanyAddRequest {
   /**
       * 
 当前页码
@@ -2492,50 +1604,207 @@ export interface SysAttributeOptionSearchRequest {
   pageSize: number;
   /**
       * 
-属性值名称
+区域编码
       */
-  attrOptionName?: string;
+  areaCode?: string;
   /**
       * 
-属性类型ID
+公司编码
       */
-  attrTypeId?: string;
+  companyCode?: string;
   /**
       * 
-录入方式（FIXED 固定, MANUAL手动）
+公司名称
       */
-  entryMode?: string;
+  companyName?: string;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+公司全称
+      */
+  fullName?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
   /**
       * 
 全局唯一序列
       */
   requestNo?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+层次级别
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+本级排序号（升序）
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+所有级别排序号
+      */
+  treeSorts?: string;
+  /**
+      * 
+公司代码
+      */
+  viewCode?: string;
 }
 
-export interface SysAttributeOptionUpdateRequest {
+export interface SysCompanyDTO {
   /**
       * 
-属性类型ID
+区域编码
       */
-  attrTypeId: string;
+  areaCode?: string;
   /**
       * 
-属性选项ID
+子公司列表
       */
-  id: string;
+  child?: SysCompanyDTO[];
   /**
       * 
-属性类型名称
+公司编码
       */
-  attrOptionName?: string;
+  companyCode?: string;
   /**
       * 
-录入方式（FIXED 固定, MANUAL手动）
+公司名称
       */
-  entryMode?: string;
+  companyName?: string;
+  /**
+      * 
+公司所包含的部门信息列表
+      */
+  companyOfficeList?: SysCompanyOfficeDTO[];
+  /**
+      * 
+租户代码
+      */
+  corpCode?: string;
+  /**
+      * 
+租户名称
+      */
+  corpName?: string;
+  /**
+      * 
+公司全称
+      */
+  fullName?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+备注信息
+      */
+  remarks?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+层次级别
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+本级排序号（升序）
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+所有级别排序号
+      */
+  treeSorts?: string;
+  /**
+      * 
+公司代码
+      */
+  viewCode?: string;
 }
 
-export interface SysAttributeSearchRequest {
+export interface SysCompanyOfficeDTO {
+  /**
+      * 
+公司编码
+      */
+  companyId?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+机构编码
+      */
+  officeId?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+}
+
+export interface SysCompanyRequest {
   /**
       * 
 当前页码
@@ -2551,19 +1820,1020 @@ export interface SysAttributeSearchRequest {
   pageSize: number;
   /**
       * 
-属性类型ID
+公司编码
       */
-  attrTypeId?: string;
+  companyCode?: string;
   /**
       * 
-属性类型名称
+公司名称
       */
-  attrTypeName?: string;
+  companyName?: string;
   /**
       * 
-属性适用类型（GOODS商品，SALES销售）
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
       */
-  attrUsedType?: "GOODS" | "SALES";
+  dataStatus?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+公司代码
+      */
+  viewCode?: string;
+}
+
+export interface SysCompanyUpdateRequest {
+  /**
+      * 
+当前页码
+       Format: int64
+      */
+  currentPage: number;
+  /**
+      * 
+每页查询数量
+       Format: int64
+       maxLength: 100
+      */
+  pageSize: number;
+  /**
+      * 
+区域编码
+      */
+  areaCode?: string;
+  /**
+      * 
+公司编码
+      */
+  companyCode?: string;
+  /**
+      * 
+公司名称
+      */
+  companyName?: string;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+公司全称
+      */
+  fullName?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+层次级别
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+本级排序号（升序）
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+所有级别排序号
+      */
+  treeSorts?: string;
+  /**
+      * 
+公司代码
+      */
+  viewCode?: string;
+}
+
+export interface SysDictDataDTO {
+  /**
+      * 
+css类名（如：red）
+      */
+  cssClass?: string;
+  /**
+      * 
+css样式（如：color:red)
+      */
+  cssStyle?: string;
+  /**
+      * 
+字典描述
+      */
+  description?: string;
+  /**
+      * 
+字典编码
+      */
+  dictCode?: string;
+  /**
+      * 
+字典主键
+      */
+  dictId?: string;
+  /**
+      * 
+字典标签
+      */
+  dictLabel?: string;
+  /**
+      * 
+字典类型
+      */
+  dictType?: string;
+  /**
+      * 
+字典键值
+      */
+  dictValue?: string;
+  /**
+      * 
+系统内置（1是 0否）
+      */
+  isSys?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+备注信息
+      */
+  remarks?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+层次级别
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+本级排序号（升序）
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+所有级别排序号
+      */
+  treeSorts?: string;
+}
+
+export interface SysDictRequest {
+  /**
+      * 
+当前页码
+       Format: int64
+      */
+  currentPage: number;
+  /**
+      * 
+每页查询数量
+       Format: int64
+       maxLength: 100
+      */
+  pageSize: number;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+字典编码
+      */
+  dictCode?: string;
+  /**
+      * 
+字典数据主键编号
+      */
+  dictId?: string;
+  /**
+      * 
+字典标签
+      */
+  dictLabel?: string;
+  /**
+      * 
+字典名称
+      */
+  dictName?: string;
+  /**
+      * 
+字典类型
+      */
+  dictType?: string;
+  /**
+      * 
+字典类型主键编号
+      */
+  dictTypeId?: string;
+  /**
+      * 
+字典键值
+      */
+  dictValue?: string;
+  /**
+      * 
+是否系统字典
+      */
+  isSys?: string;
+  /**
+      * 
+父节点编号
+      */
+  parentId?: string;
+  /**
+      * 
+父节点parentIds
+      */
+  parentIds?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+树节点层级
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+排序编号
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+排序编号集合
+      */
+  treeSorts?: string;
+}
+
+export interface SysDictTypeDTO {
+  /**
+      * 
+字典名称
+      */
+  dictName?: string;
+  /**
+      * 
+字典类型
+      */
+  dictType?: string;
+  /**
+      * 
+编号
+      */
+  dictTypeId?: string;
+  /**
+      * 
+是否系统字典
+      */
+  isSys?: string;
+  /**
+      * 
+备注信息
+      */
+  remarks?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+}
+
+export interface SysMenuDTO {
+  /**
+      * 
+子菜单列表
+      */
+  child?: SysMenuDTO[];
+  /**
+      * 
+创建者
+       Format: int64
+      */
+  createBy?: number;
+  /**
+      * 
+描述
+      */
+  discription?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+菜单编码
+      */
+  menuCode?: string;
+  /**
+      * 
+菜单地址
+      */
+  menuHref?: string;
+  /**
+      * 
+图标地址
+      */
+  menuIcon?: string;
+  /**
+      * 
+菜单名称
+      */
+  menuName?: string;
+  /**
+      * 
+请求链接
+      */
+  menuTarget?: string;
+  /**
+      * 
+菜单类型（1菜单 2权限 3开发）
+      */
+  menuType?: string;
+  parent?: SysMenuDTO;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+父菜单名称
+      */
+  parentName?: string;
+  /**
+      * 
+菜单权限
+      */
+  permission?: string;
+  /**
+      * 
+1:读写；0：只读
+       Format: int32
+      */
+  readOnly?: number;
+  /**
+      * 
+角色id
+       Format: int64
+      */
+  roleId?: number;
+  /**
+      * 
+菜单是否选中
+      */
+  selected?: boolean;
+  /**
+      * 
+是否最末级
+      */
+  treeNodeLeaf?: boolean;
+  /**
+      * 
+排序编号
+       Format: int32
+      */
+  treeSort?: number;
+}
+
+export interface SysMenuRequest {
+  /**
+      * 
+当前页码
+       Format: int64
+      */
+  currentPage: number;
+  /**
+      * 
+每页查询数量
+       Format: int64
+       maxLength: 100
+      */
+  pageSize: number;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+菜单主键
+      */
+  id?: string;
+  /**
+      * 
+菜单编码
+      */
+  menuCode?: string;
+  /**
+      * 
+菜单URL
+      */
+  menuHref?: string;
+  /**
+      * 
+菜单名称
+      */
+  menuName?: string;
+  /**
+      * 
+菜单类型（1菜单 2权限 3开发）
+      */
+  menuType?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+菜单权限
+      */
+  permission?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+菜单等级
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+本级排序号（升序） ASC
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+菜单所有级别排序号
+      */
+  treeSorts?: string;
+}
+
+export interface SysOfficeDTO {
+  /**
+      * 
+ 联系地址
+      */
+  address?: string;
+  /**
+      * 
+子部门列表
+      */
+  child?: SysOfficeDTO[];
+  /**
+      * 
+公司编码 根据公司查询机构，组织机构所属公司
+      */
+  companyCode?: string;
+  /**
+      * 
+电子邮箱
+      */
+  email?: string;
+  /**
+      * 
+机构全称
+      */
+  fullName?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+负责人
+      */
+  leader?: string;
+  /**
+      * 
+机构编码
+      */
+  officeCode?: string;
+  /**
+      * 
+机构名称
+      */
+  officeName?: string;
+  /**
+      * 
+机构类型
+      */
+  officeType?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+办公电话
+      */
+  phone?: string;
+  /**
+      * 
+备注信息
+      */
+  remarks?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+层次级别
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeNodeLeaf?: boolean;
+  /**
+      * 
+本级排序号（升序）
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+所有级别排序号
+      */
+  treeSorts?: string;
+  /**
+      * 
+机构代码
+      */
+  viewCode?: string;
+  /**
+      * 
+邮政编码
+      */
+  zipCode?: string;
+}
+
+export interface SysOfficeRequest {
+  /**
+      * 
+当前页码
+       Format: int64
+      */
+  currentPage: number;
+  /**
+      * 
+每页查询数量
+       Format: int64
+       maxLength: 100
+      */
+  pageSize: number;
+  /**
+      * 
+联系地址
+      */
+  address?: string;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+电子邮箱
+      */
+  email?: string;
+  /**
+      * 
+机构全称
+      */
+  fullName?: string;
+  /**
+      * 
+菜单主键
+      */
+  id?: string;
+  /**
+      * 
+负责人
+      */
+  leader?: string;
+  /**
+      * 
+机构编码
+      */
+  officeCode?: string;
+  /**
+      * 
+机构名称
+      */
+  officeName?: string;
+  /**
+      * 
+机构类型
+      */
+  officeType?: string;
+  /**
+      * 
+父级ID
+      */
+  parentId?: string;
+  /**
+      * 
+所有父级ID
+      */
+  parentIds?: string;
+  /**
+      * 
+办公电话
+      */
+  phone?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+是否最末级
+      */
+  treeLeaf?: string;
+  /**
+      * 
+层次级别
+       Format: int32
+      */
+  treeLevel?: number;
+  /**
+      * 
+全节点名
+      */
+  treeNames?: string;
+  /**
+      * 
+本级排序号（升序）
+       Format: int64
+      */
+  treeSort?: number;
+  /**
+      * 
+所有级别排序号
+      */
+  treeSorts?: string;
+  /**
+      * 
+机构代码
+      */
+  viewCode?: string;
+  /**
+      * 
+邮政编码
+      */
+  zipCode?: string;
+}
+
+export interface SysRoleDTO {
+  /**
+      * 
+适应业务范围（不同的功能，不同的数据权限支持）
+      */
+  bizScope?: string;
+  /**
+      * 
+数据范围设置（0未设置  1全部数据 2自定义数据）
+      */
+  dataScope?: string;
+  /**
+      * 
+主键
+      */
+  id?: string;
+  /**
+      * 
+系统内置（1是 0否）
+      */
+  isSys?: string;
+  /**
+      * 
+角色编码
+      */
+  roleCode?: string;
+  /**
+      * 
+角色名称
+      */
+  roleName?: string;
+  /**
+      * 
+角色排序（升序）
+       Format: int64
+      */
+  roleSort?: number;
+  /**
+      * 
+角色分类（高管、中层、基层、其它）
+      */
+  roleType?: string;
+  /**
+      * 
+状态（0正常 1删除 2停用）
+      */
+  status?: string;
+  /**
+      * 
+用户类型（employee员工 member会员）
+      */
+  userType?: string;
+}
+
+export interface SysRoleRequest {
+  /**
+      * 
+当前页码
+       Format: int64
+      */
+  currentPage: number;
+  /**
+      * 
+每页查询数量
+       Format: int64
+       maxLength: 100
+      */
+  pageSize: number;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+角色主键
+      */
+  id?: string;
+  /**
+      * 
+角色拥有的菜单权限集合
+      */
+  menuIds?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+角色编码
+      */
+  roleCode?: string;
+  /**
+      * 
+用户拥有的角色集合
+      */
+  roleIds?: string;
+  /**
+      * 
+角色名称
+      */
+  roleName?: string;
+  /**
+      * 
+角色排序
+       Format: int64
+      */
+  roleSort?: number;
+  /**
+      * 
+角色类型
+      */
+  roleType?: string;
+  /**
+      * 
+用户ID
+      */
+  userId?: string;
+}
+
+export interface SysUserDTO {
+  /**
+      * 
+头像路径
+      */
+  avatar?: string;
+  /**
+      * 
+电子邮箱
+      */
+  email?: string;
+  /**
+      * 
+登录账号
+      */
+  loginCode?: string;
+  /**
+      * 
+手机号码
+      */
+  mobile?: string;
+  /**
+      * 
+登录密码
+      */
+  password?: string;
+  /**
+      * 
+办公电话
+      */
+  phone?: string;
+  /**
+      * 
+用户性别
+      */
+  sex?: string;
+  /**
+      * 
+个性签名
+      */
+  sign?: string;
+  /**
+      * 
+用户昵称
+      */
+  userName?: string;
+  /**
+      * 
+绑定的微信号
+      */
+  wxOpenid?: string;
+}
+
+export interface SysUserPassRequest {
+  /**
+      * 
+当前新密码确认密码
+       maxLength: 18
+      */
+  curPass: string;
+  /**
+      * 
+当前页码
+       Format: int64
+      */
+  currentPage: number;
+  /**
+      * 
+新的密码
+       maxLength: 18
+      */
+  newPass: string;
+  /**
+      * 
+原有老的密码
+       maxLength: 18
+      */
+  oldPass: string;
+  /**
+      * 
+每页查询数量
+       Format: int64
+       maxLength: 100
+      */
+  pageSize: number;
+  /**
+      * 
+用户ID
+      */
+  userId: string;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
   /**
       * 
 全局唯一序列
@@ -2571,22 +2841,138 @@ export interface SysAttributeSearchRequest {
   requestNo?: string;
 }
 
-export interface SysAttributeUpdateRequest {
+export interface SysUserRequest {
   /**
       * 
-属性类型ID
+当前页码
+       Format: int64
       */
-  id: string;
+  currentPage: number;
   /**
       * 
-属性类型名称
+每页查询数量
+       Format: int64
+       maxLength: 100
       */
-  attrTypeName?: string;
+  pageSize: number;
   /**
       * 
-属性适用类型（GOODS商品，SALES销售）
+头像路径
       */
-  attrUsedType?: "GOODS" | "SALES";
+  avatar?: string;
+  /**
+      * 
+数据状态(0正常(默认), 1删除, 2停用, 空值代表所有)
+      */
+  dataStatus?: string;
+  /**
+      * 
+电子邮箱
+      */
+  email?: string;
+  /**
+      * 
+ID
+      */
+  id?: string;
+  /**
+      * 
+登录账号
+      */
+  loginCode?: string;
+  /**
+      * 
+管理员类型（0非管理员 1系统管理员  2二级管理员）
+      */
+  mgrType?: string;
+  /**
+      * 
+手机号码
+      */
+  mobile?: string;
+  /**
+      * 
+登录密码
+      */
+  password?: string;
+  /**
+      * 
+办公电话
+      */
+  phone?: string;
+  /**
+      * 
+全局唯一序列
+      */
+  requestNo?: string;
+  /**
+      * 
+角色ID
+      */
+  roleId?: string;
+  /**
+      * 
+用户性别
+      */
+  sex?: string;
+  /**
+      * 
+个性签名
+      */
+  sign?: string;
+  /**
+      * 
+用户编码
+      */
+  userCode?: string;
+  /**
+      * 
+用户id集合
+      */
+  userIds?: string;
+  /**
+      * 
+用户拥有的菜单集合
+      */
+  userMenuIds?: string;
+  /**
+      * 
+用户昵称
+      */
+  userName?: string;
+  /**
+      * 
+用户类型
+      */
+  userType?: string;
+  /**
+      * 
+绑定的微信号
+      */
+  wxOpenid?: string;
+}
+
+export interface SysUserRoleDTO {
+  /**
+      * 
+是否选中：true、false
+      */
+  checked?: boolean;
+  /**
+      * 
+角色ID
+      */
+  roleId?: string;
+  /**
+      * 
+用户角色ID
+      */
+  urId?: string;
+  /**
+      * 
+用户ID
+      */
+  userId?: string;
 }
 export const _CONSTANT0 = {
   headers: {

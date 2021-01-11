@@ -22,6 +22,8 @@
 
 ```js
 npmLogin('npm账号', 'npm密码', '邮箱', 'npm仓库地址');
+// 省略
+shelljs.exec('npm publish --registry=npm仓库地址');
 ```
 
 ## 安装

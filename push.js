@@ -18,11 +18,18 @@ async function run() {
 
   shelljs.echo('开始登入');
   await delay();
-  npmLogin('npm账号', 'npm密码', '邮箱', 'npm仓库地址');
+  npmLogin(
+    'deploy',
+    'sdfsdf87778',
+    'deploy@billbear.cn',
+    'https://nexus.billbear.cn/repository/npm/'
+  );
 
   shelljs.echo('开始发版');
   await delay();
-  shelljs.exec('npm publish --registry=仓库地址');
+  shelljs.exec(
+    'npm publish --registry=https://nexus.billbear.cn/repository/npm/'
+  );
 
   shelljs.echo('推送代码');
   shelljs.exec('git push');
